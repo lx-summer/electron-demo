@@ -1,20 +1,19 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
 import ElementPlus from 'element-plus';
-import 'element-plus/lib/theme-chalk/index.css'
-import './styles/index.scss'
-import './permission'
-import App from './entrance/App.vue'
-import router from './router'
-import { errorHandler } from './error'
-import moon from '@renderer/store'
-import { i18n } from "./i18n"
-import GlobDirective from './mixins'
+import 'element-plus/lib/theme-chalk/index.css';
+import './styles/index.scss';
+import './permission';
+import App from './entrance/App.vue';
+import router from './router';
+import { errorHandler } from './error';
+import moon from '@renderer/store';
+import { i18n } from './i18n';
+import GlobDirective from './mixins';
 import { registerMicroApps, start, initGlobalState, MicroAppStateActions } from 'qiankun';
-import { subApps } from './sub-app/subConfig'
+import { subApps } from './sub-app/subConfig';
 
-
-
+import $axios from './utils/ajax'; // 请求
 registerMicroApps(subApps);
 const actions = initGlobalState(moon.getState());
 // 主项目项目监听和修改
@@ -25,15 +24,16 @@ actions.onGlobalStateChange((state, prev) => {
 actions.setGlobalState(moon.getState());
 start();
 
-
-const app = createApp(App)
-app.use(ElementPlus, { i18n: i18n.global.t })
-app.use(router)
+const app = createApp(App);
+app.config.globalProperties.$axios = $axios; // 挂载全局
+console.log(app, 'App');
+app.use(ElementPlus, { i18n: i18n.global.t });
+app.use(router);
 // app.use(createStore)
-app.use(i18n)
-app.use(GlobDirective)
-errorHandler(app)
+app.use(i18n);
+app.use(GlobDirective);
+errorHandler(app);
 
 // 全局引入 TitleBar 组件
 // app.component("TitleBar", TitleBar);
-app.mount("#app")
+app.mount('#app');

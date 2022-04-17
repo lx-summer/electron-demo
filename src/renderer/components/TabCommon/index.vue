@@ -1,11 +1,6 @@
 <template>
   <section class="menu-common">
-    <el-menu
-      default-active="/"
-      class="el-menu-vertical-demo"
-      :collapse="false"
-      router
-    >
+    <el-menu default-active="/" class="el-menu-vertical-demo" :collapse="false" router>
       <el-menu-item index="/">
         <el-icon><icon-menu /></el-icon>
         <template #title>默认</template>
@@ -30,8 +25,8 @@
 
 <style lang="scss">
 .menu-common {
-    width: 200px;
-    min-height: 100%;
-    background: #fff;
+  width: 200px;
+  min-height: 100%;
+  background: #fff;
 }
 </style>
